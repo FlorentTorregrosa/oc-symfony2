@@ -15,19 +15,27 @@ class AdvertController extends Controller
         return new Response($content);
     }
 
-    public function viewAction($id, Request $request)
+    public function viewAction($id)
     {
-        // Récupération de la session
+        return $this->render('OCPlatformBundle:Advert:view.html.twig', array(
+          'id' => $id
+        ));
+    }
+
+    public function addAction(Request $request)
+    {
         $session = $request->getSession();
+        // Bien sûr, cette méthode devra réellement ajouter l'annonce
 
-        // On récupère le contenu de la variable user_id
-        $userId = $session->get('user_id');
+        // Mais faisons comme si c'était le cas
+        $session->getFlashBag()->add('info', 'Annonce bien enregistrée');
 
-        // On définit une nouvelle valeur pour cette variable user_id
-        $session->set('user_id', 91);
+        // Le « flashBag » est ce qui contient les messages flash dans la session
+        // Il peut bien sûr contenir plusieurs messages :
+        $session->getFlashBag()->add('info', 'Oui oui, il est bien enregistré !');
 
-        // On n'oublie pas de renvoyer une réponse
-        return new Response("Je suis une page de test, je n'ai rien à dire");
+        // Puis on redirige vers la page de visualisation de cette annonce
+        return $this->redirect($this->generateUrl('oc_platform_view', array('id' => 5)));
     }
 
 }
