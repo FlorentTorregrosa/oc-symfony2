@@ -3,7 +3,6 @@
 namespace OC\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdvertController extends Controller
@@ -17,10 +16,8 @@ class AdvertController extends Controller
 
     public function viewAction($id)
     {
-        return $this->render(
-          'OCPlatformBundle:Advert:view.html.twig',
-          array('id' => $id)
-        );
+        $url = $this->get('router')->generate('oc_platform_home');
+        return $this->redirect($url);
     }
 
 }
