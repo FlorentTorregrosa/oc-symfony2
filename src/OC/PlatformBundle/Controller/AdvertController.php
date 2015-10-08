@@ -28,13 +28,4 @@ class AdvertController extends Controller
         return new Response("Affichage de l'annonce d'id : ".$id);
     }
 
-    // On récupère tous les paramètres en arguments de la méthode
-    public function viewSlugAction($slug, $year, $_format)
-    {
-        return new Response(
-          "On pourrait afficher l'annonce correspondant au
-            slug '".$slug."', créée en ".$year." et au format ".$_format."."
-        );
-    }
-
 }
