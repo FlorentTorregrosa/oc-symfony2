@@ -15,15 +15,19 @@ class AdvertController extends Controller
         return new Response($content);
     }
 
-    // On injecte la requête dans les arguments de la méthode
-    public function viewAction($id, Request $request)
+    public function viewAction($id)
     {
-        // On récupère notre paramètre tag
-        $tag = $request->query->get('tag');
+        // On crée la réponse sans lui donner de contenu pour le moment
+        $response = new Response;
 
-        return new Response(
-          "Affichage de l'annonce d'id : ".$id.", avec le tag : ".$tag
-        );
+        // On définit le contenu
+        $response->setContent("Ceci est une page d'erreur 404");
+
+        // On définit le code HTTP à « Not Found » (erreur 404)
+        $response->setStatusCode(Response::HTTP_NOT_FOUND);
+
+        // On retourne la réponse
+        return $response;
     }
 
 }
