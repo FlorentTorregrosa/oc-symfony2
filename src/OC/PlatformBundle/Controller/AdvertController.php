@@ -2,12 +2,15 @@
 
 namespace OC\PlatformBundle\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdvertController
+class AdvertController extends Controller
 {
     public function indexAction()
     {
-        return new Response("Hello World!");
+        $content = $this->get('templating')->render('OCPlatformBundle:Advert:index.html.twig');
+
+        return new Response($content);
     }
 }
