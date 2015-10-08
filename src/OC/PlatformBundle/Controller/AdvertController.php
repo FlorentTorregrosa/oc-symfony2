@@ -3,6 +3,7 @@
 namespace OC\PlatformBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AdvertController extends Controller
@@ -14,9 +15,15 @@ class AdvertController extends Controller
         return new Response($content);
     }
 
-    public function viewAction($id)
+    // On injecte la requête dans les arguments de la méthode
+    public function viewAction($id, Request $request)
     {
-        return new Response("Affichage de l'annonce d'id : ".$id);
+        // On récupère notre paramètre tag
+        $tag = $request->query->get('tag');
+
+        return new Response(
+          "Affichage de l'annonce d'id : ".$id.", avec le tag : ".$tag
+        );
     }
 
 }
