@@ -266,6 +266,9 @@ class Advert
     {
         $this->applications[] = $application;
 
+        // On lie l'annonce à la candidature
+        $application->setAdvert($this);
+
         return $this;
     }
 
@@ -277,6 +280,9 @@ class Advert
     public function removeApplication(\OC\PlatformBundle\Entity\Application $application)
     {
         $this->applications->removeElement($application);
+
+        // Et si notre relation était facultative (nullable=true, ce qui n'est pas notre cas ici attention) :
+        // $application->setAdvert(null);
     }
 
     /**
