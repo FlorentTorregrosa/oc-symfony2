@@ -13,12 +13,23 @@
     <i>Par {{ advert.author }}, le {{ advert.date|date('d/m/Y') }}</i>
 
     {% if not advert.categories.empty %}
-      <p>
-        Cette annonce est parue dans les catégories suivantes :
-        {% for category in advert.categories %}
-            {{ category.name }}{% if not loop.last %}, {% endif %}
-        {% endfor %}
-      </p>
+        <p>
+          Cette annonce est parue dans les catégories suivantes :
+          {% for category in advert.categories %}
+              {{ category.name }}{% if not loop.last %}, {% endif %}
+          {% endfor %}
+        </p>
+    {% endif %}
+
+    {% if listAdvertSkills|length > 0 %}
+        <div>
+            Cette annonce requiert les compétences suivantes :
+            <ul>
+                {% for advertSkill in listAdvertSkills %}
+                    <li>{{ advertSkill.skill.name }} : niveau {{ advertSkill.level }}</li>
+                {% endfor %}
+            </ul>
+        </div>
     {% endif %}
 
     <div class="well">
@@ -40,15 +51,16 @@
         </a>
     </p>
 
-    <h3>Candidatures</h3>
-
-    <p>
-        {% for application in listApplications %}
+    {% if listApplications|length > 0 %}
+        <h3>Candidatures</h3>
         <p>
-            Par {{ application.author }} le {{ application.date|date('d/m/Y') }} : {{ application.content }}
+            {% for application in listApplications %}
+            <p>
+                Par {{ application.author }} le {{ application.date|date('d/m/Y') }} : {{ application.content }}
+            </p>
+        {% endfor %}
         </p>
-    {% endfor %}
-    </p>
+    {% endif %}
 
 
 
