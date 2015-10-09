@@ -83,4 +83,23 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
           ->getResult()
           ;
     }
+
+    public function myFindAllDQL()
+    {
+        $query = $this->_em->createQuery('SELECT a FROM OCPlatformBundle:Advert a');
+        $results = $query->getResult();
+
+        return $results;
+    }
+
+    public function myFindDQL($id)
+    {
+        $query = $this->_em->createQuery('SELECT a FROM Advert a WHERE a.id = :id');
+        $query->setParameter('id', $id);
+
+        // Utilisation de getSingleResult car la requête ne doit retourner qu'un seul résultat
+        return $query->getSingleResult();
+    }
+
+
 }
