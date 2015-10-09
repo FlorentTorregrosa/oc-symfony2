@@ -101,5 +101,18 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
         return $query->getSingleResult();
     }
 
+    public function getAdvertWithApplications()
+    {
+        $qb = $this
+          ->createQueryBuilder('a')
+          ->leftJoin('a.applications', 'app')
+          ->addSelect('app')
+        ;
+
+        return $qb
+          ->getQuery()
+          ->getResult()
+          ;
+    }
 
 }
