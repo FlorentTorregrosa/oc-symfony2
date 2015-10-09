@@ -18,4 +18,19 @@ class AdvertRepository extends \Doctrine\ORM\EntityRepository
           ->getResult()
           ;
     }
+
+    public function myFindOne($id)
+    {
+        $qb = $this->createQueryBuilder('a');
+
+        $qb
+          ->where('a.id = :id')
+          ->setParameter('id', $id)
+        ;
+
+        return $qb
+          ->getQuery()
+          ->getResult()
+          ;
+    }
 }
