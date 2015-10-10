@@ -92,9 +92,9 @@ class Advert
 
     public function __construct()
     {
-        // Par défaut, la date de l'annonce est la date d'aujourd'hui
-        $this->date = new \Datetime();
-        $this->categories = new ArrayCollection();
+        $this->date         = new \Datetime();
+        $this->categories   = new ArrayCollection();
+        $this->applications = new ArrayCollection();
     }
 
     /**
@@ -251,10 +251,8 @@ class Advert
         return $this->image;
     }
 
-    // Notez le singulier, on ajoute une seule catégorie à la fois
     public function addCategory(Category $category)
     {
-        // Ici, on utilise l'ArrayCollection vraiment comme un tableau
         $this->categories[] = $category;
 
         return $this;
@@ -262,16 +260,13 @@ class Advert
 
     public function removeCategory(Category $category)
     {
-        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
         $this->categories->removeElement($category);
     }
 
-    // Notez le pluriel, on récupère une liste de catégories ici !
     public function getCategories()
     {
         return $this->categories;
     }
-
 
     /**
      * Add application
