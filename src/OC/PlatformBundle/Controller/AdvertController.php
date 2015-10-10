@@ -22,7 +22,7 @@ class AdvertController extends Controller
         $listAdverts = $this->getDoctrine()
           ->getManager()
           ->getRepository('OCPlatformBundle:Advert')
-          ->findAll()
+          ->getAdverts()
         ;
 
         // L'appel de la vue ne change pas
