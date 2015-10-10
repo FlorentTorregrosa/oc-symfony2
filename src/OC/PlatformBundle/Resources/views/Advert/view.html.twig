@@ -51,17 +51,4 @@
         </a>
     </p>
 
-    {% if listApplications|length > 0 %}
-        <h3>Candidatures</h3>
-        <p>
-            {% for application in listApplications %}
-            <p>
-                Par {{ application.author }} le {{ application.date|date('d/m/Y') }} : {{ application.content }}
-            </p>
-        {% endfor %}
-        </p>
-    {% endif %}
-
-
-
 {% endblock %}
