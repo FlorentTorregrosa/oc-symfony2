@@ -72,6 +72,11 @@ class Advert
      */
     private $applications; // Notez le « s », une annonce est liée à plusieurs candidatures
 
+    /**
+     * @ORM\Column(name="updated_at", type="datetime", nullable=true)
+     */
+    private $updatedAt;
+
     public function __construct()
     {
         // Par défaut, la date de l'annonce est la date d'aujourd'hui
@@ -293,5 +298,29 @@ class Advert
     public function getApplications()
     {
         return $this->applications;
+    }
+
+    /**
+     * Set updatedAt
+     *
+     * @param \DateTime $updatedAt
+     *
+     * @return Advert
+     */
+    public function setUpdatedAt($updatedAt)
+    {
+        $this->updatedAt = $updatedAt;
+
+        return $this;
+    }
+
+    /**
+     * Get updatedAt
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updatedAt;
     }
 }
