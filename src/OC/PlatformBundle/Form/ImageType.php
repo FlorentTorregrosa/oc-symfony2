@@ -15,11 +15,11 @@ class ImageType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('url')
-            ->add('alt')
+          ->add('url', 'text')
+          ->add('alt', 'text')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
