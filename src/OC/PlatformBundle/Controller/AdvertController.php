@@ -7,6 +7,7 @@ use OC\PlatformBundle\Form\AdvertEditType;
 use OC\PlatformBundle\Form\AdvertType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class AdvertController extends Controller
 {
@@ -102,7 +103,6 @@ class AdvertController extends Controller
         $form = $this->get('form.factory')->create(new AdvertEditType(), $advert);
 
         if ($form->handleRequest($request)->isValid()) {
-            $em->persist($advert);
             $em->flush();
 
             $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
@@ -118,29 +118,32 @@ class AdvertController extends Controller
 
     public function deleteAction($id, Request $request)
     {
-        // On récupère l'EntityManager
         $em = $this->getDoctrine()->getManager();
 
-        // On récupère l'entité correspondant à l'id $id
+        // On récupère l'annonce $id
         $advert = $em->getRepository('OCPlatformBundle:Advert')->find($id);
 
-        // Si l'annonce n'existe pas, on affiche une erreur 404
-        if ($advert == null) {
-            throw $this->createNotFoundException("L'annonce d'id ".$id." n'existe pas.");
+        if (null === $advert) {
+            throw new NotFoundHttpException("L'annonce d'id ".$id." n'existe pas.");
         }
 
-        if ($request->isMethod('POST')) {
-            // Si la requête est en POST, on supprimera l'article
+        // On crée un formulaire vide, qui ne contiendra que le champ CSRF
+        // Cela permet de protéger la suppression d'annonce contre cette faille
+        $form = $this->createFormBuilder()->getForm();
 
-            $request->getSession()->getFlashBag()->add('info', 'Annonce bien supprimée.');
+        if ($form->handleRequest($request)->isValid()) {
+            $em->remove($advert);
+            $em->flush();
 
-            // Puis on redirige vers l'accueil
+            $request->getSession()->getFlashBag()->add('info', "L'annonce a bien été supprimée.");
+
             return $this->redirect($this->generateUrl('oc_platform_home'));
         }
 
-        // Si la requête est en GET, on affiche une page de confirmation avant de delete
+        // Si la requête est en GET, on affiche une page de confirmation avant de supprimer
         return $this->render('OCPlatformBundle:Advert:delete.html.twig', array(
-          'advert' => $advert
+          'advert' => $advert,
+          'form'   => $form->createView()
         ));
     }
 

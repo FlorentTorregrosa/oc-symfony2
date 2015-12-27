@@ -25,7 +25,8 @@ class AdvertType extends AbstractType
           ->add('categories', 'entity', array(
             'class'    => 'OCPlatformBundle:Category',
             'property' => 'name',
-            'multiple' => true
+            'multiple' => true,
+            'expanded' => false
           ))
           ->add('save',      'submit')
         ;
