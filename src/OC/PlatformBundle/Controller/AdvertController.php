@@ -3,6 +3,7 @@
 namespace OC\PlatformBundle\Controller;
 
 use OC\PlatformBundle\Entity\Advert;
+use OC\PlatformBundle\Form\AdvertEditType;
 use OC\PlatformBundle\Form\AdvertType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -98,10 +99,20 @@ class AdvertController extends Controller
             throw $this->createNotFoundException("L'annonce d'id ".$id." n'existe pas.");
         }
 
-        // Ici, on s'occupera de la création et de la gestion du formulaire
+        $form = $this->get('form.factory')->create(new AdvertEditType(), $advert);
+
+        if ($form->handleRequest($request)->isValid()) {
+            $em->persist($advert);
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+
+            return $this->redirect($this->generateUrl('oc_platform_view', array('id' => $advert->getId())));
+        }
 
         return $this->render('OCPlatformBundle:Advert:edit.html.twig', array(
-          'advert' => $advert
+          'advert' => $advert,
+          'form' => $form->createView(),
         ));
     }
 
