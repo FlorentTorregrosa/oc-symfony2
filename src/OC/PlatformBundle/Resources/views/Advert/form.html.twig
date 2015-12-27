@@ -32,18 +32,10 @@
     </div>
 
     <div class="form-group">
-        {{ form_label(form.image.url, "URL de l'image de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-        {{ form_errors(form.image.url) }}
-        <div class="col-sm-4 checkbox">
-            {{ form_widget(form.image.url, {'attr': {'class': 'form-control'}}) }}
-        </div>
-    </div>
-
-    <div class="form-group">
-        {{ form_label(form.image.alt, "Texte alternatif de l'image de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-        {{ form_errors(form.image.alt) }}
-        <div class="col-sm-4 checkbox">
-            {{ form_widget(form.image.alt, {'attr': {'class': 'form-control'}}) }}
+        {{ form_label(form.image, "Image de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+        {{ form_errors(form.image) }}
+        <div class="col-sm-4">
+            {{ form_widget(form.image) }}
         </div>
     </div>
 
