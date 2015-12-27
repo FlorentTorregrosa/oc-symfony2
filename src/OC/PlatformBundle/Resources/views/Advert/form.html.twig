@@ -67,13 +67,15 @@
         </div>
     </div>
 
-    <div class="form-group">
-        {{ form_label(form.published, "Statut de publication de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
-        {{ form_errors(form.published) }}
-        <div class="col-sm-4 checkbox">
-            {{ form_widget(form.published, {'attr': {'class': 'form-control'}}) }}
+    {% if form.date is defined %}
+        <div class="form-group">
+            {{ form_label(form.published, "Statut de publication de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
+            {{ form_errors(form.published) }}
+            <div class="col-sm-4 checkbox">
+                {{ form_widget(form.published, {'attr': {'class': 'form-control'}}) }}
+            </div>
         </div>
-    </div>
+    {% endif %}
 
     <div class="form-group">
         {{ form_label(form.categories, "Catégories de l'annonce", {'label_attr': {'class': 'col-sm-3 control-label'}}) }}
