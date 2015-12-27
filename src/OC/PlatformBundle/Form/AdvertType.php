@@ -15,19 +15,15 @@ class AdvertType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('date')
-            ->add('title')
-            ->add('author')
-            ->add('content')
-            ->add('published')
-            ->add('updatedAt')
-            ->add('nbApplications')
-            ->add('slug')
-            ->add('image')
-            ->add('categories')
+          ->add('date',      'date')
+          ->add('title',     'text')
+          ->add('author',    'text')
+          ->add('content',   'textarea')
+          ->add('published', 'checkbox', array('required' => false))
+          ->add('save',      'submit')
         ;
     }
-    
+
     /**
      * @param OptionsResolverInterface $resolver
      */
