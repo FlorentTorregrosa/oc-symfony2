@@ -70,17 +70,32 @@ class AdvertController extends Controller
 
     public function addAction(Request $request)
     {
-        if ($request->isMethod('POST')) {
-            // Ici, on s'occupera de la création et de la gestion du formulaire
+        // On crée un objet Advert
+        $advert = new Advert();
 
-            $request->getSession()->getFlashBag()->add('info', 'Annonce bien enregistrée.');
+        // On crée le FormBuilder grâce au service form factory
+        $formBuilder = $this->get('form.factory')->createBuilder('form', $advert);
 
-            // Puis on redirige vers la page de visualisation de cet article
-            return $this->redirect($this->generateUrl('oc_platform_view', array('id' => 1)));
-        }
+        // On ajoute les champs de l'entité que l'on veut à notre formulaire
+        $formBuilder
+          ->add('date',      'date')
+          ->add('title',     'text')
+          ->add('content',   'textarea')
+          ->add('author',    'text')
+          ->add('published', 'checkbox')
+          ->add('save',      'submit')
+        ;
 
-        // Si on n'est pas en POST, alors on affiche le formulaire
-        return $this->render('OCPlatformBundle:Advert:add.html.twig');
+        // Pour l'instant, pas de candidatures, catégories, etc., on les gérera plus tard
+
+        // À partir du formBuilder, on génère le formulaire
+        $form = $formBuilder->getForm();
+
+        // On passe la méthode createView() du formulaire à la vue
+        // afin qu'elle puisse afficher le formulaire toute seule
+        return $this->render('OCPlatformBundle:Advert:add.html.twig', array(
+          'form' => $form->createView(),
+        ));
     }
 
     public function editAction($id, Request $request)
