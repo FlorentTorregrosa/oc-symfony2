@@ -41,4 +41,4 @@ services:
         class:     OC\PlatformBundle\Bigbrother\CensorshipListener
         arguments: [@oc_platform.censorship_processor, [1, 2, 3]]
         tags:
-            - { name: kernel.event_listener, event: oc_platform.bigbrother.post_message, method: processMessage }
+            - { name: kernel.event_subscriber }
