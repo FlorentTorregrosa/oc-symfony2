@@ -1,7 +1,3 @@
-oc_user:
-    resource: "@OCUserBundle/Resources/config/routing.yml"
-    prefix:   /
-
 oc_platform:
     resource: "@OCPlatformBundle/Resources/config/routing.yml"
     prefix:   /platform
