@@ -26,3 +26,14 @@ services:
         class: OC\PlatformBundle\Form\Type\CkeditorType
         tags:
             - { name: form.type, alias: ckeditor }
+
+services:
+    oc_platform.beta.html:
+        class: OC\PlatformBundle\Beta\BetaHTML
+
+services:
+    oc_platform.beta.listener:
+        class: OC\PlatformBundle\Beta\BetaListener
+        arguments: [@oc_platform.beta.html, "2015-12-31"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: processBeta }
