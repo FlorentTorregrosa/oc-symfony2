@@ -11,3 +11,4 @@
 /web/bundles/
 /web/uploads/
 .idea
+composer.lock
