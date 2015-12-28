@@ -6,6 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Advert
@@ -302,6 +303,24 @@ class Advert
 
         // Et si notre relation était facultative (nullable=true, ce qui n'est pas notre cas ici attention) :
         // $application->setAdvert(null);
+    }
+
+    /**
+     * @Assert\Callback
+     */
+    public function isContentValid(ExecutionContextInterface $context)
+    {
+        $forbiddenWords = array('échec', 'abandon');
+
+        // On vérifie que le contenu ne contient pas l'un des mots
+        if (preg_match('#'.implode('|', $forbiddenWords).'#', $this->getContent())) {
+            // La règle est violée, on définit l'erreur
+            $context
+              ->buildViolation('Contenu invalide car il contient un mot interdit.') // message
+              ->atPath('content')                                                   // attribut de l'objet qui est violé
+              ->addViolation() // ceci déclenche l'erreur, ne l'oubliez pas
+            ;
+        }
     }
 
     /**
