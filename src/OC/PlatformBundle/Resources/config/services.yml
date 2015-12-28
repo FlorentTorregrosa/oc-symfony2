@@ -9,3 +9,10 @@ services:
         arguments: [@mailer]
         tags:
             - { name: doctrine.event_listener, event: postPersist }
+
+services:
+    oc_platform.validator.antiflood:
+        class: OC\PlatformBundle\Validator\AntifloodValidator
+        arguments: [@request_stack, @doctrine.orm.entity_manager]
+        tags:
+            - { name: validator.constraint_validator, alias: oc_platform_antiflood }
