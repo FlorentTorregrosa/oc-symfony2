@@ -23,6 +23,13 @@ security:
         main:
             pattern:   ^/
             anonymous: true
+            provider:  in_memory
+                form_login:
+                    login_path: login
+                    check_path: login_check
+                logout:
+                    path:   logout
+                    target: /platform
 
     access_control:
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
