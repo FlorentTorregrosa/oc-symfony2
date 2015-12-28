@@ -7,31 +7,26 @@ services:
         tags:
             -  { name: twig.extension }
 
-services:
     oc_platform.doctrine.notification:
         class: OC\PlatformBundle\DoctrineListener\ApplicationNotification
         arguments: [@mailer]
         tags:
             - { name: doctrine.event_listener, event: postPersist }
 
-services:
     oc_platform.validator.antiflood:
         class: OC\PlatformBundle\Validator\AntifloodValidator
         arguments: [@request_stack, @doctrine.orm.entity_manager]
         tags:
             - { name: validator.constraint_validator, alias: oc_platform_antiflood }
 
-services:
     sdz_blog.ckeditor:
         class: OC\PlatformBundle\Form\Type\CkeditorType
         tags:
             - { name: form.type, alias: ckeditor }
 
-services:
     oc_platform.beta.html:
         class: OC\PlatformBundle\Beta\BetaHTML
 
-services:
     oc_platform.beta.listener:
         class: OC\PlatformBundle\Beta\BetaListener
         arguments: [@oc_platform.beta.html, "2015-12-31"]
