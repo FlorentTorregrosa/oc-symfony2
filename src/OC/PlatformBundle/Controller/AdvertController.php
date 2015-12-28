@@ -2,6 +2,8 @@
 
 namespace OC\PlatformBundle\Controller;
 
+use OC\PlatformBundle\Bigbrother\BigbrotherEvents;
+use OC\PlatformBundle\Bigbrother\MessagePostEvent;
 use OC\PlatformBundle\Entity\Advert;
 use OC\PlatformBundle\Form\AdvertEditType;
 use OC\PlatformBundle\Form\AdvertType;
@@ -77,6 +79,18 @@ class AdvertController extends Controller
         $form = $this->get('form.factory')->create(new AdvertType(), $advert);
 
         if ($form->handleRequest($request)->isValid()) {
+            // On crée l'évènement avec ses 2 arguments
+            $event = new MessagePostEvent($advert->getContent(), $advert->getUser());
+
+            // On déclenche l'évènement
+            $this
+              ->get('event_dispatcher')
+              ->dispatch(BigbrotherEvents::onMessagePost, $event)
+            ;
+
+            // On récupère ce qui a été modifié par le ou les listeners, ici le message
+            $advert->setContent($event->getMessage());
+
             $em = $this->getDoctrine()->getManager();
             $em->persist($advert);
             $em->flush();
