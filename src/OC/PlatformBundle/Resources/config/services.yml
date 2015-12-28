@@ -19,3 +19,8 @@ services:
         tags:
             - { name: validator.constraint_validator, alias: oc_platform_antiflood }
 
+services:
+    sdz_blog.ckeditor:
+        class: OC\PlatformBundle\Form\Type\CkeditorType
+        tags:
+            - { name: form.type, alias: ckeditor }
