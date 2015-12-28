@@ -34,9 +34,6 @@
                 {% if is_granted('ROLE_AUTEUR') %}
                     <li><a href="{{ path('oc_platform_add') }}">Ajouter une annonce</a></li>
                 {% endif %}
-                {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                    <li><a href="{{ path('logout') }}">Déconnexion</a></li>
-                {% endif %}
             </ul>
 
             <h4>Dernières annonces</h4>
