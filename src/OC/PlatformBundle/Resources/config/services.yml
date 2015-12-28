@@ -31,7 +31,7 @@ services:
         class: OC\PlatformBundle\Beta\BetaListener
         arguments: [@oc_platform.beta.html, "2015-12-31"]
         tags:
-            - { name: kernel.event_listener, event: kernel.response, method: processBeta }
+            - { name: kernel.event_listener, event: kernel.response, method: processBeta, priority: 2 }
 
     oc_platform.censorship_processor:
         class:     OC\PlatformBundle\Bigbrother\CensorshipProcessor

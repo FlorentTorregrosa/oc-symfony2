@@ -15,12 +15,10 @@ class CensorshipListener implements EventSubscriberInterface
         $this->listUsers = $listUsers;
     }
 
-    // La méthode de l'interface que l'on doit implémenter, à définir en static
     static public function getSubscribedEvents()
     {
-        // On retourne un tableau « nom de l'évènement » => « méthode à exécuter »
         return array(
-          'oc_platform.bigbrother.post_message' => 'processMessage',
+          'oc_platform.bigbrother.post_message' => array('processMessage' => 2),
         );
     }
 
