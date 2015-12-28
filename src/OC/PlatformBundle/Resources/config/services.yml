@@ -2,6 +2,8 @@ services:
     oc_platform.antispam:
         class: OC\PlatformBundle\Antispam\OCAntispam
         arguments: [@mailer, %locale%, 50]
+        tags:
+            -  { name: twig.extension }
 
 services:
     oc_platform.doctrine.notification:
@@ -16,3 +18,4 @@ services:
         arguments: [@request_stack, @doctrine.orm.entity_manager]
         tags:
             - { name: validator.constraint_validator, alias: oc_platform_antiflood }
+
