@@ -18,7 +18,7 @@ class CensorshipListener implements EventSubscriberInterface
     static public function getSubscribedEvents()
     {
         return array(
-          'oc_platform.bigbrother.post_message' => array('processMessage' => 2),
+          'oc_platform.bigbrother.post_message' => 'processMessage',
         );
     }
 
