@@ -21,18 +21,18 @@ security:
             pattern:   ^/login$
             anonymous: true
 
-        main:
-            pattern:   ^/
-            anonymous: false
-            provider:  main
-            form_login:
-                login_path: fos_user_security_login
-                check_path: fos_user_security_check
-            logout:
-                path:   fos_user_security_logout
-                target: /platform
-            remember_me:
-                key:    %secret% # %secret% est un paramètre de parameters.yml
+#        main:
+#            pattern:   ^/
+#            anonymous: false
+#            provider:  main
+#            form_login:
+#                login_path: fos_user_security_login
+#                check_path: fos_user_security_check
+#            logout:
+#                path:   fos_user_security_logout
+#                target: /platform
+#            remember_me:
+#                key:    %secret% # %secret% est un paramètre de parameters.yml
 
     access_control:
         - { path: ^/admin, roles: ROLE_ADMIN }
