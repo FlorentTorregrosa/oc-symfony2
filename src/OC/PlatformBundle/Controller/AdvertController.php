@@ -47,7 +47,7 @@ class AdvertController extends Controller
         ));
     }
 
-    public function viewAction($id)
+    public function viewAction(Advert $advert, $id)
     {
         // On récupère l'EntityManager
         $em = $this->getDoctrine()->getManager();
